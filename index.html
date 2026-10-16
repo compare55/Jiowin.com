@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jiowin - Home</title>
+  <link rel="stylesheet" href="style.css">
+<style>.logo img{max-width:180px;object-fit:contain}.logo{display:flex;align-items:center;gap:10px}</style></head>
+<body>
+
+  <header class="navbar">
+    <div class="logo"><img src="jiowin-logo.svg" alt="Jiowin" style="height:42px;width:auto;vertical-align:middle"> <span>Jiowin</span></div>
+    <div class="nav-wallet">
+      <button id="soundToggle" class="nav-btn" style="padding:0.5rem 0.8rem;">🔊</button>
+      <div class="coin-display">🪙 <span id="navBalance">0</span></div>
+      <button class="nav-btn" onclick="openWallet()">Wallet</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <h2 class="page-title">🎮 Choose Your Game</h2>
+    <p class="page-subtitle">Tap any game to play with virtual coins</p>
+
+    <div class="game-grid">
+
+      <a href="slot.html" class="game-card">
+        <div class="game-thumb slot-thumb">🎰</div>
+        <div class="game-name">Slot Machine</div>
+        <div class="game-tag">5x3 Reels · Big Wins</div>
+        <div class="play-badge">PLAY ▶</div>
+      </a>
+
+      <a href="aviator.html" class="game-card">
+        <div class="game-thumb aviator-thumb"><img src="aviator-logo.webp" alt="Aviator" class="aviator-game-logo"></div>
+        <div class="game-name">Aviator</div>
+        <div class="game-tag">Crash · Multiply Wins</div>
+        <div class="play-badge">PLAY ▶</div>
+      </a>
+
+      <a href="color.html" class="game-card">
+        <div class="game-thumb color-thumb"><img src="color-prediction-logo.jpeg" alt="Color Prediction" class="color-game-logo"></div>
+        <div class="game-name">Color Prediction</div>
+        <div class="game-tag">WinGo · 9x Payout</div>
+        <div class="play-badge">PLAY ▶</div>
+      </a>
+
+      <a href="dragon-tiger.html" class="game-card">
+        <div class="game-thumb dt-thumb"><img src="dragon-tiger-logo.jpeg" alt="Dragon Tiger" class="dragon-tiger-game-logo"></div>
+        <div class="game-name">Dragon Tiger</div>
+        <div class="game-tag">Card Battle · 50:1</div>
+        <div class="play-badge">PLAY ▶</div>
+      </a>
+
+      <a href="seven-up-down.html" class="game-card">
+        <div class="game-thumb sud-thumb"><img src="seven-up-down-logo.jpeg" alt="7Up 7Down" class="seven-up-down-game-logo"></div>
+        <div class="game-name">7Up 7Down</div>
+        <div class="game-tag">Dice · 9x Numbers</div>
+        <div class="play-badge">PLAY ▶</div>
+      </a>
+
+      <a href="pappu.html" class="game-card">
+        <div class="game-thumb pappu-thumb">🦋</div>
+        <div class="game-name">Pappu Play</div>
+        <div class="game-tag">12 Pictures · 10x</div>
+        <div class="play-badge">PLAY ▶</div>
+      </a>
+
+      <a href="e-sabong.html" class="game-card">
+        <div class="game-thumb esabong-thumb">🐓</div>
+        <div class="game-name">Super E-Sabong</div>
+        <div class="game-tag">Cockfight · Dynamic Odds</div>
+        <div class="play-badge">PLAY ▶</div>
+      </a>
+
+      <a href="money-coming.html" class="game-card">
+        <div class="game-thumb mc-thumb">💰</div>
+        <div class="game-name">Money Coming</div>
+        <div class="game-tag">Slot · Multiplier Respins</div>
+        <div class="play-badge">PLAY ▶</div>
+      </a>
+
+    </div>
+  </main>
+
+  <div id="walletModal" class="modal hidden">
+    <div class="modal-content wallet-modal-content">
+      <h2>💰 My Wallet</h2>
+      <div class="wallet-balance">
+        <div class="wb-label">Available Coins</div>
+        <div class="wb-amount">🪙 <span id="walletBalance">0</span></div>
+      </div>
+      <div class="wallet-actions">
+        <button class="btn-add" onclick="openDeposit()">+ Add Money</button>
+        <button class="btn-withdraw" onclick="openWithdrawPanel()">↓ Withdraw</button>
+      </div>
+      <section id="withdrawPanel" class="withdraw-panel hidden">
+        <h3>🏦 Withdrawal Bank Account</h3>
+        <p class="withdraw-note">Add bank details to prepare a Jiowin withdrawal request.</p>
+        <form id="bankForm" onsubmit="saveBankAccount(event)">
+          <label for="bankHolder">Account holder name</label>
+          <input id="bankHolder" name="bankHolder" autocomplete="name" required maxlength="80" placeholder="Name as on bank account">
+          <label for="bankName">Bank name</label>
+          <input id="bankName" name="bankName" required maxlength="80" placeholder="Bank name">
+          <label for="bankAccount">Account number</label>
+          <input id="bankAccount" name="bankAccount" inputmode="numeric" autocomplete="off" pattern="[0-9]{6,20}" required placeholder="Enter account number">
+          <label for="bankIfsc">IFSC code</label>
+          <input id="bankIfsc" name="bankIfsc" autocapitalize="characters" pattern="[A-Za-z]{4}0[A-Za-z0-9]{6}" maxlength="11" required placeholder="e.g. SBIN0001234">
+          <button type="submit" class="bank-save">Save bank details</button>
+        </form>
+        <div id="savedBankSummary" class="saved-bank-summary hidden"></div>
+        <form id="withdrawForm" class="hidden" onsubmit="submitWithdrawRequest(event)">
+          <label for="withdrawAmount">Withdrawal amount (coins)</label>
+          <input id="withdrawAmount" type="number" min="1" step="1" required placeholder="Enter amount">
+          <button type="submit" class="bank-save">Submit withdrawal request</button>
+        </form>
+        <p class="withdraw-note">Demo only: this page does not transfer real money. Connect a secure backend/payment provider before enabling real withdrawals.</p>
+      </section>
+      <div class="wallet-info">
+        <p>⚠️ Virtual coins only. No real money involved.</p>
+        <p style="font-size:0.85rem;color:#888;">Deposits are credited only after admin approval</p>
+      </div>
+      <h3 style="margin-top:1.5rem;">Transaction History</h3>
+      <div id="txHistory" class="tx-history"></div>
+      <button class="modal-close" onclick="closeWallet()">Close</button>
+    </div>
+  </div>
+
+  <div id="depositModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="depositTitle">
+    <div class="modal-content deposit-content">
+      <button class="deposit-x" onclick="closeDeposit()" aria-label="Close deposit">×</button>
+      <h2 id="depositTitle">Deposit</h2>
+      <p class="deposit-subtitle">Select payment method</p>
+      <div class="payment-method-grid">
+        <button class="payment-method" onclick="openPaymentPage('paytm')"><span class="payment-logo paytm-logo">Paytm</span></button>
+        <button class="payment-method" onclick="openPaymentPage('phonepe')"><span class="payment-logo phonepe-logo">● PhonePe</span></button>
+        <button class="payment-method" onclick="openPaymentPage('upi')"><span class="payment-logo upi-logo">UPI</span></button>
+        <button class="payment-method" onclick="openPaymentPage('phonepe-p2p')"><span class="payment-logo phonepe-logo">● PhonePe</span><small>P2P</small></button>
+        <button class="payment-method" onclick="openPaymentPage('upi-p2p')"><span class="payment-logo upi-logo">UPI</span><small>P2P</small></button>
+        <button class="payment-method" onclick="openPaymentPage('paytm-p2p')"><span class="payment-logo paytm-logo">Paytm</span><small>P2P</small></button>
+        <button class="payment-method" onclick="openPaymentPage('gpay')"><span class="payment-logo gpay-logo">G Pay</span><small>P2P</small></button>
+      </div>
+      <button class="modal-close" onclick="closeDeposit()">Close</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="wallet-cleanup.js"></script><script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucky Slots</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="slot-luxury.css">
+</head>
+<body class="slot-body">
+
+  <header class="navbar">
+    <button class="back-icon" onclick="location.href='index.html'">←</button>
+    <div class="logo">🎰 Lucky Slots</div>
+    <div class="nav-wallet">
+      <div class="coin-display">🪙 <span id="navBalance">0</span></div>
+      <button class="nav-btn" onclick="openWallet()">Wallet</button>
+    </div>
+  </header>
+
+  <main class="slot-page">
+
+    <div class="slot-cabinet">
+
+      <div class="jackpot-display">
+        <span class="jackpot-icon">💎</span>
+        <div class="jackpot-text">
+          <span class="jackpot-label">MEGA JACKPOT</span>
+          <span class="jackpot-value" id="jackpotValue">12,450,000</span>
+        </div>
+        <span class="jackpot-icon">💎</span>
+      </div>
+
+      <div class="reels-frame">
+
+        <div class="payline-lines">
+          <div class="payline-line line-1"></div>
+          <div class="payline-line line-2"></div>
+          <div class="payline-line line-3"></div>
+        </div>
+
+        <div class="reels" id="reels">
+          <div class="reel" data-reel="0">
+            <div class="reel-drum">
+              <div class="sym" data-sym="cherry">🍒</div>
+              <div class="sym" data-sym="lemon">🍋</div>
+              <div class="sym" data-sym="bell">🔔</div>
+            </div>
+            <div class="drum-shade-top"></div>
+            <div class="drum-shade-bottom"></div>
+          </div>
+          <div class="reel" data-reel="1">
+            <div class="reel-drum">
+              <div class="sym" data-sym="star">⭐</div>
+              <div class="sym" data-sym="diamond">💎</div>
+              <div class="sym" data-sym="seven">7️⃣</div>
+            </div>
+            <div class="drum-shade-top"></div>
+            <div class="drum-shade-bottom"></div>
+          </div>
+          <div class="reel" data-reel="2">
+            <div class="reel-drum">
+              <div class="sym" data-sym="cherry">🍒</div>
+              <div class="sym" data-sym="bell">🔔</div>
+              <div class="sym" data-sym="diamond">💎</div>
+            </div>
+            <div class="drum-shade-top"></div>
+            <div class="drum-shade-bottom"></div>
+          </div>
+          <div class="reel" data-reel="3">
+            <div class="reel-drum">
+              <div class="sym" data-sym="seven">7️⃣</div>
+              <div class="sym" data-sym="star">⭐</div>
+              <div class="sym" data-sym="lemon">🍋</div>
+            </div>
+            <div class="drum-shade-top"></div>
+            <div class="drum-shade-bottom"></div>
+          </div>
+          <div class="reel" data-reel="4">
+            <div class="reel-drum">
+              <div class="sym" data-sym="bell">🔔</div>
+              <div class="sym" data-sym="cherry">🍒</div>
+              <div class="sym" data-sym="star">⭐</div>
+            </div>
+            <div class="drum-shade-top"></div>
+            <div class="drum-shade-bottom"></div>
+          </div>
+        </div>
+
+        <div class="frame-corner tl"></div>
+        <div class="frame-corner tr"></div>
+        <div class="frame-corner bl"></div>
+        <div class="frame-corner br"></div>
+      </div>
+
+      <div class="slot-controls">
+
+        <div class="balance-box">
+          <div class="bal-label">BALANCE</div>
+          <div class="bal-value">🪙 <span id="slotBalance">0</span></div>
+        </div>
+
+        <div class="bet-chips">
+          <div class="bet-label">BET</div>
+          <div class="chips-row">
+            <button class="bet-chip" data-bet="10">10</button>
+            <button class="bet-chip active" data-bet="50">50</button>
+            <button class="bet-chip" data-bet="100">100</button>
+            <button class="bet-chip" data-bet="500">500</button>
+          </div>
+        </div>
+
+      </div>
+
+      <button id="spinBtn" class="spin-button">
+        <span class="spin-button-inner">
+          <span class="spin-button-icon">🎰</span>
+          <span class="spin-button-text">SPIN</span>
+        </span>
+      </button>
+
+      <div id="message" class="slot-message">Tap SPIN to play!</div>
+
+      <div class="slot-info">
+        <span>3 Paylines</span>
+        <span>•</span>
+        <span>Max Win 10x</span>
+        <span>•</span>
+        <span>RTP 96%</span>
+      </div>
+
+    </div>
+
+  </main>
+
+  <div id="bigWinBanner" class="bigwin-overlay hidden">
+    <div class="bigwin-content">
+      <div class="bigwin-rays"></div>
+      <div class="bigwin-title">BIG WIN!</div>
+      <div class="bigwin-amount">+<span id="bigWinAmount">0</span></div>
+      <div class="bigwin-coins">🪙 🪙 🪙</div>
+    </div>
+  </div>
+
+  <div id="walletModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>💰 My Wallet</h2>
+      <div class="wallet-balance">
+        <div class="wb-label">Available Coins</div>
+        <div class="wb-amount">🪙 <span id="walletBalance">0</span></div>
+      </div>
+      <div class="wallet-actions">
+        <button class="btn-add" onclick="addCoins()">+ Add Coins</button>
+        <button class="btn-withdraw" onclick="withdrawCoins()">↓ Withdraw</button>
+      </div>
+      <div class="wallet-info"><p>⚠️ Virtual coins only. No real money involved.</p></div>
+      <h3 style="margin-top:1.5rem;">Transaction History</h3>
+      <div id="txHistory" class="tx-history"></div>
+      <button class="modal-close" onclick="closeWallet()">Close</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="wallet-cleanup.js"></script><script src="live-bets.js"></script><script src="slot.js"></script>
+</body>
+</html>

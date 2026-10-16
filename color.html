@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Prediction</title>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="color-luxury.css">
+</head>
+<body class="color-game-page">
+  <header class="navbar color-navbar">
+    <button class="back-icon" onclick="location.href='index.html'" aria-label="Back">☰</button>
+    <div class="logo">COLOR <span>PREDICTION</span></div>
+    <div class="nav-wallet"><div class="coin-display">₹ <span id="navBalance">0</span></div><button class="nav-btn" onclick="openWallet()">＋</button></div>
+  </header>
+  <main class="page color-page"><div class="color-container">
+    <div class="game-brand"><span class="brand-chip">4</span><span>Color Prediction</span><span class="brand-live">● LIVE</span></div>
+    <div class="round-panel">
+      <div class="period-info"><span class="period-label">PERIOD</span><span class="period-number" id="periodNumber">20261011001</span></div>
+      <div class="countdown-wrap"><span class="countdown-label">Countdown</span><div class="timer-display" id="timerDisplay">30</div><span class="timer-caption">seconds</span></div>
+    </div>
+    <div class="result-panel"><div class="result-ball" id="resultBall">4</div><div class="result-side"><span class="result-label">Last result</span><strong>Number result</strong><span class="result-hint">Next round starts when countdown ends</span></div></div>
+    <div class="section-label">Colors</div>
+    <div class="color-buttons">
+      <button class="color-btn green" onclick="placeBet('green')"><span class="color-circle"></span><span>Green</span><span class="payout">2x</span></button>
+      <button class="color-btn violet" onclick="placeBet('violet')"><span class="color-circle"></span><span>Violet</span><span class="payout">4.5x</span></button>
+      <button class="color-btn red" onclick="placeBet('red')"><span class="color-circle"></span><span>Red</span><span class="payout">2x</span></button>
+    </div>
+    <div class="section-label">Big / Small</div>
+    <div class="big-small-buttons"><button class="bs-btn small" onclick="placeBet('small')"><span>Small</span><span class="bs-range">0 – 4</span></button><button class="bs-btn big" onclick="placeBet('big')"><span>Big</span><span class="bs-range">5 – 9</span></button></div>
+    <div class="number-grid"><div class="section-label">Numbers <span>9x payout</span></div><div class="numbers">
+      <button class="num-btn n0" onclick="placeBet('num0')">0</button><button class="num-btn n1" onclick="placeBet('num1')">1</button><button class="num-btn n2" onclick="placeBet('num2')">2</button><button class="num-btn n3" onclick="placeBet('num3')">3</button><button class="num-btn n4" onclick="placeBet('num4')">4</button>
+      <button class="num-btn n5" onclick="placeBet('num5')">5</button><button class="num-btn n6" onclick="placeBet('num6')">6</button><button class="num-btn n7" onclick="placeBet('num7')">7</button><button class="num-btn n8" onclick="placeBet('num8')">8</button><button class="num-btn n9" onclick="placeBet('num9')">9</button>
+    </div></div>
+    <div class="bet-panel"><label for="colorBet">Bet amount</label><div class="bet-input-group"><button onclick="adjustBet(-10)">−</button><input type="number" id="colorBet" value="10" min="10" step="10"><button onclick="adjustBet(10)">＋</button></div><div class="quick-bets"><button onclick="setBet(10)">10</button><button onclick="setBet(50)">50</button><button onclick="setBet(100)">100</button><button onclick="setBet(500)">500</button></div></div>
+    <div class="balance-strip"><span>Balance: <b id="inlineBalance">1000</b></span><span>WIN TO: <b>—</b></span><span>Clear <button class="clear-bets" onclick="showToast('Current round bets are settled at result time')">×</button></span></div>
+    <div class="color-history"><h3>History <span>Last 10 results</span></h3><div class="history-head"><span>Period</span><span>Number</span><span>Result</span><span>Size</span></div><div class="history-list" id="colorHistory"></div></div>
+  </div></main>
+  <div id="walletModal" class="modal hidden"><div class="modal-content"><h2>My Wallet</h2><div class="wallet-balance"><div class="wb-label">Available virtual coins</div><div class="wb-amount">🪙 <span id="walletBalance">0</span></div></div><div class="wallet-actions"><button class="btn-add" onclick="addCoins()">+ Add Coins</button><button class="btn-withdraw" onclick="withdrawCoins()">↓ Withdraw</button></div><div class="wallet-info"><p>Virtual coins only. No real money involved.</p></div><h3 style="margin-top:1.5rem">Transaction History</h3><div id="txHistory" class="tx-history"></div><button class="modal-close" onclick="closeWallet()">Close</button></div></div>
+  <div id="toast" class="toast hidden"></div><script src="wallet-cleanup.js"></script><script src="live-bets.js"></script><script src="color.js"></script>
+</body></html>

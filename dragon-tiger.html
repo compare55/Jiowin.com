@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dragon Tiger</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dragon-tiger-luxury.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <button class="back-icon" onclick="location.href='index.html'">←</button>
+    <div class="logo">🐉 Dragon Tiger</div>
+    <div class="nav-wallet">
+      <div class="coin-display">🪙 <span id="navBalance">0</span></div>
+      <button class="nav-btn" onclick="openWallet()">Wallet</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="dt-container">
+      <div id="dtRoundPopup" class="dt-round-popup hidden" role="status" aria-live="polite">BET LOCKED</div>
+      <div class="dt-header">
+        <div class="dt-status" id="dtStatus">Place your bets!</div>
+        <div class="dt-timer" id="dtTimer">15</div>
+      </div>
+
+      <div class="dt-table">
+        <div class="dt-side dragon-side">
+          <div class="dt-label">🐉 DRAGON</div>
+          <div class="dt-card" id="dragonCard">
+            <span class="card-value">?</span>
+            <span class="card-suit">♠</span>
+          </div>
+          <div class="dt-win-tag hidden" id="dragonWinTag">WINNER</div>
+        </div>
+
+        <div class="dt-vs">VS</div>
+
+        <div class="dt-side tiger-side">
+          <div class="dt-label">🐯 TIGER</div>
+          <div class="dt-card" id="tigerCard">
+            <span class="card-value">?</span>
+            <span class="card-suit">♥</span>
+          </div>
+          <div class="dt-win-tag hidden" id="tigerWinTag">WINNER</div>
+        </div>
+      </div>
+
+      <div class="dt-bet-section">
+        <div class="dt-bet-label">Select Chip</div>
+        <div class="dt-chips">
+          <button class="chip" data-val="10" onclick="selectChip(10)">10</button>
+          <button class="chip active" data-val="50" onclick="selectChip(50)">50</button>
+          <button class="chip" data-val="100" onclick="selectChip(100)">100</button>
+          <button class="chip" data-val="500" onclick="selectChip(500)">500</button>
+        </div>
+      </div>
+
+      <div class="dt-main-bets">
+        <button class="dt-bet-btn dragon" onclick="placeBet('dragon')">
+          <span class="dt-bet-icon">🐉</span>
+          <span class="dt-bet-name">DRAGON</span>
+          <span class="dt-bet-payout">1:1</span>
+          <span class="dt-bet-amount" id="betDragon">0</span>
+          <span class="dt-chip-stack" id="chipsDragon" aria-label="Dragon bet chips"></span>
+        </button>
+        <button class="dt-bet-btn tie" onclick="placeBet('tie')">
+          <span class="dt-bet-icon">🤝</span>
+          <span class="dt-bet-name">TIE</span>
+          <span class="dt-bet-payout">11:1</span>
+          <span class="dt-bet-amount" id="betTie">0</span>
+          <span class="dt-chip-stack" id="chipsTie" aria-label="Tie bet chips"></span>
+        </button>
+        <button class="dt-bet-btn tiger" onclick="placeBet('tiger')">
+          <span class="dt-bet-icon">🐯</span>
+          <span class="dt-bet-name">TIGER</span>
+          <span class="dt-bet-payout">1:1</span>
+          <span class="dt-bet-amount" id="betTiger">0</span>
+          <span class="dt-chip-stack" id="chipsTiger" aria-label="Tiger bet chips"></span>
+        </button>
+      </div>
+
+      <div class="dt-side-bets">
+        <div class="side-bet-row">
+          <button class="dt-side-btn" onclick="placeBet('dragonBig')">🐉 Dragon Big (8+)<span class="dt-chip-stack" id="chipsDragonBig" aria-label="dragonBig bet chips"></span></button>
+          <button class="dt-side-btn" onclick="placeBet('dragonSmall')">🐉 Dragon Small (6-)<span class="dt-chip-stack" id="chipsDragonSmall" aria-label="dragonSmall bet chips"></span></button>
+        </div>
+        <div class="side-bet-row">
+          <button class="dt-side-btn" onclick="placeBet('tigerBig')">🐯 Tiger Big (8+)<span class="dt-chip-stack" id="chipsTigerBig" aria-label="tigerBig bet chips"></span></button>
+          <button class="dt-side-btn" onclick="placeBet('tigerSmall')">🐯 Tiger Small (6-)<span class="dt-chip-stack" id="chipsTigerSmall" aria-label="tigerSmall bet chips"></span></button>
+        </div>
+        <div class="side-bet-row">
+          <button class="dt-side-btn suited" onclick="placeBet('suitedTie')">✨ Suited Tie (50:1)<span class="dt-chip-stack" id="chipsSuitedTie" aria-label="suitedTie bet chips"></span></button>
+        </div>
+      </div>
+
+      <div class="dt-footer">
+        <div class="dt-total">Total Bet: <span id="dtTotalBet">0</span> 🪙</div>
+        <button class="dt-clear-btn" onclick="clearBets()">Clear All</button>
+      </div>
+
+      <div class="dt-history">
+        <h3>Last 10 Results</h3>
+        <div class="dt-history-list" id="dtHistory"></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="walletModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>💰 My Wallet</h2>
+      <div class="wallet-balance">
+        <div class="wb-label">Available Coins</div>
+        <div class="wb-amount">🪙 <span id="walletBalance">0</span></div>
+      </div>
+      <div class="wallet-actions">
+        <button class="btn-add" onclick="addCoins()">+ Add Coins</button>
+        <button class="btn-withdraw" onclick="withdrawCoins()">↓ Withdraw</button>
+      </div>
+      <div class="wallet-info"><p>⚠️ Virtual coins only. No real money involved.</p></div>
+      <h3 style="margin-top:1.5rem;">Transaction History</h3>
+      <div id="txHistory" class="tx-history"></div>
+      <button class="modal-close" onclick="closeWallet()">Close</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="wallet-cleanup.js"></script><script src="live-bets.js"></script><script src="dragon-tiger.js"></script>
+</body>
+</html>

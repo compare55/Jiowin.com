@@ -1,0 +1,357 @@
+/* ========================
+   BASE
+   ======================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: radial-gradient(circle at top, #1b1b2f, #0a0a12);
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* ========================
+   NAVBAR
+   ======================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 1.5rem;
+  background: rgba(20, 20, 35, 0.95);
+  border-bottom: 2px solid #f1c40f;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.navbar .logo { flex: 1; }
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #f1c40f;
+  text-shadow: 0 0 10px rgba(241, 196, 15, 0.6);
+}
+.nav-wallet { display: flex; align-items: center; gap: 10px; }
+.coin-display {
+  background: #0f0f1a;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #f1c40f;
+  color: #f1c40f;
+  font-weight: bold;
+}
+.nav-btn {
+  padding: 0.5rem 1.2rem;
+  background: linear-gradient(145deg, #e94560, #c0392b);
+  border: 2px solid #f1c40f;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.nav-btn:hover { transform: scale(1.05); }
+
+/* ========================
+   PAGES
+   ======================== */
+.page { padding: 1.5rem; max-width: 900px; margin: 0 auto; }
+.hidden { display: none !important; }
+.page-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #f1c40f;
+  font-size: 1.5rem;
+}
+.page-subtitle {
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ========================
+   MENU GRID
+   ======================== */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.game-card {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  background: linear-gradient(145deg, #2a2a40, #16162a);
+  border: 2px solid #f1c40f;
+  border-radius: 18px;
+  padding: 1.3rem 1rem;
+  text-align: center;
+  cursor: pointer;
+ : transition: transform 0.15s, box 0 8-shadow 0.15s;
+  overflow: hiddenpx;
+}
+.game-card:hover {
+  transform: translateY(-6px);
+  box-shadow 25px rgba(241, 196, 15, 0.5);
+}
+.game-thumb {
+  font-size: 3.5rem;
+  margin-bottom: 0.6rem;
+  display: block;
+  filter: drop-shadow(0 0 12px rgba(241, 196, 15, 0.5));
+}
+.game-name { font-weight: bold; color: #fff; font-size: 1rem; margin-bottom: 0.2rem; }
+.game-tag { font-size: 0.75rem; color: #f1c40f; margin-bottom: 0.6rem; }
+.play-badge {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  background: linear-gradient(145deg, #2ecc71, #27ae60);
+  color: #fff;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  box-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
+}
+
+/* ========================
+   BACK ICON
+   ======================== */
+.back-icon {
+  background: transparent;
+  border: 2px solid #f1c40f;
+  color: #f1c40f;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-icon:hover { background: rgba(241, 196, 15, 0.15); }
+
+/* ========================
+   MODAL
+   ======================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 1rem;
+}
+.modal-content {
+  background: linear-gradient(145deg, #1f1f35, #0f0f1a);
+  border: 2px solid #f1c40f;
+  border-radius: 20px;
+  padding: 1.5rem;
+  max-width: 420px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-content h2 { color: #f1c40f; text-align: center; margin-bottom: 1rem; }
+.wallet-balance {
+  background: #0a0a12;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #f1c40f;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.wb-label { font-size: 0.85rem; color: #aaa; }
+.wb-amount { font-size: 1.8rem; color: #f1c40f; font-weight: bold; margin-top: 0.3rem; }
+.wallet-actions { display: flex; gap: 10px; margin-bottom: 1rem; }
+.wallet-actions button {
+  flex: 1;
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 2px solid #f1c40f;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+.btn-add { background: linear-gradient(145deg, #2ecc71, #27ae60); color: #fff; }
+.btn-withdraw { background: linear-gradient(145deg, #e67e22, #d35400); color: #fff; }
+.wallet-info p { font-size: 0.85rem; color: #f39c12; text-align: center; margin: 0.3rem 0; }
+.tx-history {
+  max-height: 150px;
+  overflow-y: auto;
+  background: #0a0a12;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+}
+.tx-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid #222;
+}
+.tx-item:last-child { border-bottom: none; }
+.tx-add { color: #2ecc71; }
+.tx-withdraw { color: #e67e22; }
+.tx-bet { color: #e94560; }
+.tx-win { color: #f1c40f; }
+.modal-close {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.7rem;
+  background: #333;
+  border: 1px solid #f1c40f;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ========================
+   TOAST
+   ======================== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f1c40f;
+  color: #000;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: bold;
+  z-index: 200;
+  box-shadow: 0 0 20px rgba(241, 196, 15, 0.8);
+}
+
+/* ========================
+   CHIPS (common)
+   ======================== */
+.chip {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px solid #f1c40f;
+  background: #0a0a12;
+  color: #f1c40f;
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chip.active {
+  background: #f1c40f;
+  color: #000;
+  box-shadow: 0 0 15px rgba(241, 196, 15, 0.8);
+  transform: scale(1.1);
+}
+.dt-chips { display: flex; justify-content: center; gap: 8px; }
+.dt-bet-label {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 0.3rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* ========================
+   FLOATING ANIMATIONS
+   ======================== */
+.slot-thumb { animation: floatSlot 3s ease-in-out infinite; }
+.aviator-thumb { animation: floatPlane 2.5s ease-in-out infinite; }
+.color-thumb { animation: spinColor 4s linear infinite; }
+.dt-thumb { animation: floatDT 3s ease-in-out infinite; }
+.sud-thumb { animation: floatSUD 3s ease-in-out infinite; }
+.pappu-thumb { animation: floatPappu 3s ease-in-out infinite; }
+.esabong-thumb { animation: floatESabong 3s ease-in-out infinite; }
+.mc-thumb { animation: floatMC 3s ease-in-out infinite; }
+
+@keyframes floatSlot { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes floatPlane { 0%,100% { transform: translate(0,0) rotate(0); } 50% { transform: translate(6px,-6px) rotate(-8deg); } }
+@keyframes spinColor { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@keyframes floatDT { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes floatSUD { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-6px) rotate(10deg); } }
+@keyframes floatPappu { 0%,100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(-4px) rotate(-5deg); } 75% { transform: translateY(-4px) rotate(5deg); } }
+@keyframes floatESabong { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-6px) rotate(-8deg); } }
+@keyframes floatMC { 0%,100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(-6px) rotate(-5deg); } 75% { transform: translateY(-6px) rotate(5deg); } }
+
+/* ========================
+   MOBILE
+   ======================== */
+@media (max-width: 500px) {
+  .logo { font-size: 1.1rem; }
+  .coin-display { padding: 0.4rem 0.7rem; font-size: 0.85rem; }
+  .nav-btn { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+  .game-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .game-thumb { font-size: 3rem; }
+  .game-name { font-size: 0.9rem; }
+}
+
+
+/* Color Prediction logo on the home page */
+.color-thumb { animation: none !important; filter: none; }
+.aviator-game-logo { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
+.color-game-logo { display: block; width: min(100%, 150px); aspect-ratio: 1 / 1; object-fit: cover; border-radius: 18px; margin: 0 auto; filter: drop-shadow(0 0 12px rgba(241, 196, 15, 0.25)); }
+
+
+/* Withdrawal bank-account form */
+.withdraw-panel { margin: 1rem 0; padding: 1rem; background: #0a0a12; border: 1px solid #3b82f6; border-radius: 12px; }
+.withdraw-panel h3 { margin: 0 0 .5rem; color: #93c5fd; }
+.withdraw-panel label { display: block; margin: .65rem 0 .3rem; color: #ddd; font-size: .88rem; }
+.withdraw-panel input { width: 100%; box-sizing: border-box; padding: .75rem; border: 1px solid #45455f; border-radius: 8px; background: #171727; color: #fff; font: inherit; }
+.withdraw-panel input:focus { outline: 2px solid #3b82f6; outline-offset: 1px; }
+.bank-save { width: 100%; margin-top: .8rem; padding: .8rem; border: 0; border-radius: 8px; background: linear-gradient(135deg,#2563eb,#1d4ed8); color: #fff; font-weight: 700; cursor: pointer; }
+.withdraw-note { color: #aaa; font-size: .8rem; line-height: 1.45; margin: .6rem 0; }
+.saved-bank-summary { margin-top: .8rem; padding: .7rem; border-radius: 8px; background: #10251b; color: #86efac; font-size: .85rem; overflow-wrap: anywhere; }
+
+
+/* Deposit methods popup */
+.deposit-content { background:#fff; color:#17132c; border:0; border-radius:28px; max-width:620px; position:relative; padding:1.6rem; }
+.deposit-content h2 { color:#17132c; font-size:1.8rem; margin:.2rem 0 1.2rem; }
+.deposit-x { position:absolute; right:14px; top:12px; width:38px; height:38px; border:0; border-radius:50%; background:#f1eff8; color:#8d88a4; font-size:1.8rem; cursor:pointer; }
+.deposit-subtitle { text-align:center; font-size:1rem; margin:0 0 1.4rem; color:#27213b; }
+.payment-method-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.payment-method { min-height:112px; padding:12px 6px; border:2px solid #eeebf8; border-radius:25px; background:#f8f7fd; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; cursor:pointer; }
+.payment-method:active { transform:scale(.98); }
+.payment-logo { font-weight:800; font-size:clamp(1rem,4vw,1.6rem); letter-spacing:-.8px; }
+.paytm-logo { color:#1b4c91; text-shadow:2px 0 #52b8e8; }
+.phonepe-logo { color:#6734a6; }
+.upi-logo { color:#666; font-style:italic; font-size:1.8rem; }
+.gpay-logo { color:#5f6368; font-weight:500; }
+.payment-method small { background:#427f9c; color:#fff; font-size:.65rem; font-weight:bold; padding:3px 20px; border-radius:2px; }
+@media(max-width:420px) { .deposit-content { padding:1.2rem .8rem; } .payment-method { min-height:95px; border-radius:20px; } }
+
+/* 7Up 7Down home-page game logo */
+.seven-up-down-game-logo { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
+
+
+/* Dragon Tiger home-page game logo */
+.dragon-tiger-game-logo { display:block; width:100%; height:100%; object-fit:cover; border-radius:14px; }
+
+
+/* Responsive header and wallet presentation */
+.navbar { flex-wrap: wrap; justify-content: space-between; min-width: 0; }
+.navbar .logo { min-width: 0; }
+.nav-wallet { flex-shrink: 0; }
+.wallet-modal-content { max-width: 520px; }
+.wallet-balance { padding: 1.2rem; background: radial-gradient(circle at top, #202044, #090914); box-shadow: inset 0 0 18px rgba(241,196,15,.08); }
+.wb-amount { font-size: clamp(1.8rem, 7vw, 2.5rem); overflow-wrap: anywhere; }
+.wallet-actions button { min-height: 48px; }
+@media (max-width: 560px) {
+  .navbar { padding: .65rem .75rem; gap: .6rem; align-items: center; }
+  .navbar .logo { flex: 1 1 100%; justify-content: center; font-size: 1.15rem; }
+  .logo img { height: 34px !important; }
+  .nav-wallet { width: 100%; display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: .45rem; }
+  .nav-wallet .coin-display { text-align: center; min-width: 0; padding: .55rem .35rem; white-space: nowrap; }
+  .nav-wallet .nav-btn { padding: .55rem .7rem !important; white-space: nowrap; font-size: .84rem; }
+  .page { padding: 1rem .7rem; }
+  .modal { padding: .55rem; align-items: center; }
+  .modal-content { padding: 1rem; max-height: 92dvh; border-radius: 17px; }
+  .wallet-actions { gap: .55rem; }
+  .wallet-actions button { padding: .75rem .45rem; font-size: .88rem; }
+  .withdraw-panel { padding: .75rem; }
+}

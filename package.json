@@ -1,0 +1,12 @@
+{
+  "name": "jiowin-admin-approval",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jiowin website with Telegram admin request approval starter",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

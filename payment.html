@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deposit Payment</title><link rel="stylesheet" href="style.css"><style>
+body{background:#f4f2fb;color:#201a35}.pay-page{max-width:520px;margin:24px auto;padding:18px}.pay-card{background:#fff;border-radius:24px;padding:22px;box-shadow:0 8px 30px #1a123012}.pay-top{display:flex;align-items:center;gap:12px}.back-link{border:0;background:#f1eff8;border-radius:50%;width:42px;height:42px;font-size:22px;cursor:pointer}.pay-title{font-size:1.5rem;font-weight:800}.method-name{text-align:center;font-size:1.15rem;font-weight:700;margin:22px 0}.qr-placeholder{min-height:210px;border:1px solid #e6e1f0;background:#faf9fe;border-radius:18px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;color:#77718e}.qr-placeholder img{display:block;width:100%;max-width:390px;height:auto;object-fit:contain;border-radius:8px;margin:auto}.pay-card label{display:block;margin:14px 0 6px;font-weight:600}.pay-card input{width:100%;box-sizing:border-box;padding:13px;border:1px solid #d9d5e6;border-radius:10px;font:inherit}.pay-submit:disabled{opacity:.65;cursor:wait}.pay-submit{width:100%;margin-top:18px;background:#5524c7;color:white;border:0;border-radius:12px;padding:14px;font-weight:700;font-size:1rem;cursor:pointer}.notice{font-size:.86rem;color:#77718e;line-height:1.5}.status{margin-top:12px;padding:10px;border-radius:10px;background:#f6f3ff;color:#514477;display:none}
+</style></head><body><main class="pay-page"><section class="pay-card"><div class="pay-top"><button class="back-link" onclick="history.back()" aria-label="Back">‹</button><div class="pay-title">Deposit</div></div><div id="methodName" class="method-name">Payment method</div><div class="qr-placeholder"><img src="phonepe-payment-qr.jpeg" alt="Scan and pay using PhonePe QR code"></div><form id="paymentForm"><label for="amount">Deposit amount (₹)</label><input id="amount" type="number" min="1" max="100000" step="1" required placeholder="Enter amount"><label for="utr">Transaction ID / UTR (after paying)</label><input id="utr" maxlength="80" required placeholder="Enter UTR / transaction reference"><button class="pay-submit" type="submit">Submit payment details</button></form><p class="notice">Your request goes to the Telegram admin for review. The wallet shown here is a browser demo wallet; this does not verify bank settlement or provide a secure real-money ledger.</p><div id="status" class="status" role="status"></div></section></main><script src="wallet-cleanup.js"></script><script>
+const names={'paytm':'Paytm','phonepe':'PhonePe','upi':'UPI','phonepe-p2p':'PhonePe (P2P)','upi-p2p':'UPI (P2P)','paytm-p2p':'Paytm (P2P)','gpay':'Google Pay (P2P)'};
+const method=new URLSearchParams(window.location.search).get('method')||'upi';
+document.getElementById('methodName').textContent=names[method]||'UPI';
+document.title=(names[method]||'UPI')+' Deposit';
+const form=document.getElementById('paymentForm');
+const statusBox=document.getElementById('status');
+let submitting=false;
+form.addEventListener('submit', async (event)=>{
+  event.preventDefault();
+  if(submitting) return;
+  const amount=Number(document.getElementById('amount').value);
+  const utr=document.getElementById('utr').value.trim();
+  if(!Number.isInteger(amount)||amount<1||amount>100000){statusBox.textContent='Amount must be a whole number between ₹1 and ₹1,00,000.';statusBox.style.display='block';return;}
+  if(!utr){statusBox.textContent='Payment UTR / transaction reference is required.';statusBox.style.display='block';return;}
+  statusBox.style.display='block';
+  statusBox.textContent='Sending request to Jiowin admin…';
+  submitting=true;
+  const button=form.querySelector('button[type="submit"]');
+  button.disabled=true;
+  try {
+    let customerId=localStorage.getItem('jiowinCustomerId');
+    if(!customerId || !/^[A-Za-z0-9_-]{6,80}$/.test(customerId)){
+      customerId='J'+Math.random().toString(36).slice(2,12).toUpperCase()+Date.now().toString(36).toUpperCase();
+      localStorage.setItem('jiowinCustomerId',customerId);
+    }
+    const response=await fetch('/api/requests',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({type:'deposit',amount,utr,customerId})
+    });
+    const raw=await response.text();
+    let data;
+    try { data=JSON.parse(raw); }
+    catch { throw new Error('Server returned a non-JSON response (HTTP '+response.status+'). Check that the latest Jiowin Node Web Service is deployed, not a Static Site.'); }
+    if(!response.ok) throw new Error(data.error||('Server request failed (HTTP '+response.status+').'));
+    statusBox.textContent='Request '+data.id+' sent to Telegram admin. Keep this page open to check the decision.';
+    const requestId=data.id;
+    const timer=setInterval(async()=>{
+      try {
+        const check=await fetch('/api/requests/'+encodeURIComponent(requestId),{headers:{'Accept':'application/json'}});
+        if(!check.ok) return;
+        const result=await check.json();
+        if(result.status==='APPROVED'||result.status==='REJECTED'){
+          clearInterval(timer);
+          if(result.status==='APPROVED'){
+            const appliedKey='jiowin_applied_'+requestId;
+            if(!localStorage.getItem(appliedKey)){
+              const balance=Number(localStorage.getItem('demoBalance')||0);
+              localStorage.setItem('demoBalance',String(balance+amount));
+              let tx=[];try{tx=JSON.parse(localStorage.getItem('demoTx')||'[]');if(!Array.isArray(tx))tx=[];}catch{}
+              tx.unshift({type:'add',amount,note:'Admin-approved deposit (browser demo)',time:new Date().toLocaleTimeString()});
+              localStorage.setItem('demoTx',JSON.stringify(tx.slice(0,30)));
+              localStorage.setItem(appliedKey,'1');
+            }
+            statusBox.textContent='✅ Admin approved the request. ₹'+amount+' was added to this browser demo wallet. Reopen Wallet on the home page.';
+          } else statusBox.textContent='❌ Admin rejected this request.';
+        }
+      } catch(err){ console.error('Request status check failed:',err); }
+    },3000);
+  } catch(error) {
+    console.error('Add Money request failed:',error);
+    statusBox.textContent='Could not send request: '+(error&&error.message?error.message:'Network error')+' Open /api/health on this same Render URL and confirm telegramConfigured is true.';
+  } finally {
+    submitting=false;
+    button.disabled=false;
+  }
+});
+</script></body></html>

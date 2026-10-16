@@ -1,0 +1,350 @@
+/* ========================
+   SUPER E-SABONG LUXURY
+   ======================== */
+.esabong-container {
+  max-width: 680px; margin: 0 auto;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(46, 204, 113, 0.1), transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(233, 69, 96, 0.1), transparent 60%),
+    linear-gradient(180deg, #1a0a04 0%, #050302 100%);
+  border: 4px solid;
+  border-image: linear-gradient(180deg, #f7d774, #8b5a00, #f7d774) 1;
+  border-radius: 20px;
+  padding: 1.2rem;
+  box-shadow:
+    0 0 50px rgba(247, 215, 116, 0.25),
+    inset 0 0 60px rgba(0,0,0,0.7);
+  position: relative;
+}
+.esabong-container::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 14px;
+  background: repeating-linear-gradient(-45deg, transparent 0 22px, rgba(255,255,255,0.02) 22px 24px);
+  pointer-events: none;
+}
+
+.esabong-arena {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background:
+    radial-gradient(ellipse at center, rgba(139, 69, 19, 0.25), transparent 70%),
+    linear-gradient(180deg, #1a0d05, #050302);
+  border: 3px solid;
+  border-image: linear-gradient(180deg, #8b5a00, #3d2800, #8b5a00) 1;
+  border-radius: 18px;
+  padding: 1.5rem 0.8rem;
+  margin-bottom: 1rem;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.9);
+}
+.esabong-arena::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 40px, rgba(0,0,0,0.15) 40px 41px);
+  pointer-events: none;
+}
+
+.esabong-rooster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  flex: 1;
+  z-index: 1;
+  transition: transform 0.2s;
+}
+.esabong-rooster .rooster-icon {
+  font-size: 4rem;
+  filter: drop-shadow(0 0 20px rgba(247, 215, 116, 0.5));
+  transition: transform 0.2s;
+}
+.esabong-rooster.fighting .rooster-icon {
+  animation: roosterFightLuxury 0.3s infinite alternate;
+}
+@keyframes roosterFightLuxury {
+  from { transform: translateX(-8px) rotate(-8deg) scale(1); }
+  to { transform: translateX(8px) rotate(8deg) scale(1.1); }
+}
+.esabong-rooster.winner {
+  animation: winnerRoosterLuxury 0.5s infinite alternate;
+}
+@keyframes winnerRoosterLuxury {
+  from { filter: drop-shadow(0 0 20px rgba(247, 215, 116, 0.8)); transform: scale(1); }
+  to { filter: drop-shadow(0 0 50px rgba(247, 215, 116, 1)); transform: scale(1.1); }
+}
+
+.rooster-name {
+  font-weight: 900;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+}
+.meron-side .rooster-name {
+  color: #2ecc71;
+  text-shadow: 0 0 15px rgba(46, 204, 113, 0.7);
+}
+.wala-side .rooster-name {
+  color: #e94560;
+  text-shadow: 0 0 15px rgba(233, 69, 96, 0.7);
+}
+.rooster-color { font-size: 0.7rem; color: #aaa; letter-spacing: 1px; }
+.rooster-status {
+  font-size: 0.8rem;
+  color: #f7d774;
+  font-weight: 900;
+  min-height: 1.2em;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(247, 215, 116, 0.6);
+}
+
+.esabong-vs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 0.6rem;
+}
+.vs-text {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #f7d774;
+  text-shadow:
+    0 0 15px #f7d774,
+    0 0 30px rgba(247, 215, 116, 0.6);
+  letter-spacing: 2px;
+}
+.fight-status {
+  font-size: 0.72rem;
+  color: #f7d774;
+  text-align: center;
+  min-height: 2em;
+  max-width: 110px;
+  letter-spacing: 0.5px;
+}
+
+.esabong-timer-bar {
+  position: relative;
+  height: 32px;
+  background: linear-gradient(180deg, #0a0503, #1a0d05);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 2px solid #8b5a00;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+}
+.esabong-timer-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f7d774, #f39c12);
+  transition: width 1s linear;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(247, 215, 116, 0.6);
+}
+.esabong-timer-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 900;
+  font-size: 0.9rem;
+  color: #1a0a04;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+}
+
+.esabong-odds {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+.odds-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0,0,0,0.6);
+  padding: 0.6rem 0.4rem;
+  border-radius: 12px;
+  border: 2px solid;
+}
+.odds-item.meron { border-color: #2ecc71; }
+.odds-item.draw { border-color: #9b59b6; }
+.odds-item.wala { border-color: #e94560; }
+.odds-label {
+  font-size: 0.65rem;
+  color: #aaa;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.odds-value {
+  font-size: 1.15rem;
+  font-weight: 900;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+.meron .odds-value { color: #2ecc71; text-shadow: 0 0 10px rgba(46, 204, 113, 0.6); }
+.draw .odds-value { color: #c39bdd; text-shadow: 0 0 10px rgba(155, 89, 182, 0.6); }
+.wala .odds-value { color: #e94560; text-shadow: 0 0 10px rgba(233, 69, 96, 0.6); }
+
+.esabong-pool {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+.pool-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.5));
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(247, 215, 116, 0.2);
+}
+.pool-label {
+  font-size: 0.62rem;
+  color: #aaa;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.pool-value {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #f7d774;
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 8px rgba(247, 215, 116, 0.6);
+}
+
+.esabong-bet-section { margin-bottom: 1rem; }
+
+.esabong-main-bets {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.esabong-bet-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.9rem 0.3rem;
+  border-radius: 14px;
+  border: 2px solid;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.4));
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.6);
+}
+.esabong-bet-btn:hover { transform: translateY(-3px); }
+.esabong-bet-btn:active { transform: translateY(0); }
+.esabong-bet-btn.meron {
+  border-color: #2ecc71;
+  color: #2ecc71;
+  box-shadow: 0 4px 0 #1a7a3e, 0 0 15px rgba(46, 204, 113, 0.2);
+}
+.esabong-bet-btn.draw {
+  border-color: #9b59b6;
+  color: #c39bdd;
+  box-shadow: 0 4px 0 #5b2c6f, 0 0 15px rgba(155, 89, 182, 0.2);
+}
+.esabong-bet-btn.wala {
+  border-color: #e94560;
+  color: #e94560;
+  box-shadow: 0 4px 0 #8b1a2e, 0 0 15px rgba(233, 69, 96, 0.2);
+}
+.bet-icon { font-size: 1.6rem; }
+.bet-name {
+  font-size: 0.72rem;
+  margin: 0.3rem 0;
+  letter-spacing: 1px;
+  font-weight: 900;
+}
+.bet-amount {
+  font-size: 0.9rem;
+  background: rgba(0,0,0,0.6);
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-top: 0.3rem;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  border: 1px solid currentColor;
+}
+
+.esabong-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.6);
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(247, 215, 116, 0.3);
+}
+.esabong-total {
+  font-size: 0.95rem;
+  color: #f7d774;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.esabong-total span { font-family: 'Courier New', monospace; font-size: 1.1rem; }
+.esabong-clear-btn {
+  padding: 0.5rem 1.2rem;
+  background: linear-gradient(180deg, #e94560, #8b1a2e);
+  border: 2px solid #f7d774;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  box-shadow: 0 3px 0 #5c0f1a;
+}
+
+.esabong-history {
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(247, 215, 116, 0.3);
+  border-radius: 14px;
+  padding: 0.9rem;
+}
+.esabong-history h3 {
+  font-size: 0.8rem;
+  color: #f7d774;
+  margin-bottom: 0.6rem;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.esabong-history-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.esabong-history-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.4rem 0.7rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.4));
+  border: 1px solid rgba(247, 215, 116, 0.3);
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+.esabong-h-result { font-weight: 900; letter-spacing: 1px; font-size: 0.75rem; }
+.esabong-h-result.green { color: #2ecc71; text-shadow: 0 0 8px rgba(46, 204, 113, 0.6); }
+.esabong-h-result.red { color: #e94560; text-shadow: 0 0 8px rgba(233, 69, 96, 0.6); }
+.esabong-h-result.violet { color: #c39bdd; text-shadow: 0 0 8px rgba(155, 89, 182, 0.6); }
+
+@media (max-width: 500px) {
+  .esabong-rooster .rooster-icon { font-size: 2.8rem; }
+  .vs-text { font-size: 1.4rem; }
+  .bet-name { font-size: 0.65rem; }
+  .odds-value { font-size: 0.95rem; }
+  .rooster-name { font-size: 0.85rem; }
+}

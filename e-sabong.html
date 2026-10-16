@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super E-Sabong</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="e-sabong-luxury.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <button class="back-icon" onclick="location.href='index.html'">←</button>
+    <div class="logo">🐓 Super E-Sabong</div>
+    <div class="nav-wallet">
+      <div class="coin-display">🪙 <span id="navBalance">0</span></div>
+      <button class="nav-btn" onclick="openWallet()">Wallet</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="esabong-container">
+      <div class="esabong-arena">
+        <div class="esabong-rooster meron-side" id="meronRooster">
+          <div class="rooster-icon">🐓</div>
+          <div class="rooster-name">MERON</div>
+          <div class="rooster-color">White</div>
+          <div class="rooster-status" id="meronStatus">Ready</div>
+        </div>
+
+        <div class="esabong-vs">
+          <div class="vs-text">VS</div>
+          <div class="fight-status" id="fightStatus">Waiting for bets...</div>
+        </div>
+
+        <div class="esabong-rooster wala-side" id="walaRooster">
+          <div class="rooster-icon">🐓</div>
+          <div class="rooster-name">WALA</div>
+          <div class="rooster-color">Red</div>
+          <div class="rooster-status" id="walaStatus">Ready</div>
+        </div>
+      </div>
+
+      <div class="esabong-timer-bar">
+        <div class="esabong-timer-fill" id="timerFill"></div>
+        <div class="esabong-timer-text" id="timerText">15s</div>
+      </div>
+
+      <div class="esabong-odds">
+        <div class="odds-item meron">
+          <span class="odds-label">Meron Odds</span>
+          <span class="odds-value" id="meronOdds">2.00x</span>
+        </div>
+        <div class="odds-item draw">
+          <span class="odds-label">Draw</span>
+          <span class="odds-value">8.00x</span>
+        </div>
+        <div class="odds-item wala">
+          <span class="odds-label">Wala Odds</span>
+          <span class="odds-value" id="walaOdds">2.00x</span>
+        </div>
+      </div>
+
+      <div class="esabong-pool">
+        <div class="pool-item">
+          <span class="pool-label">Meron Pool</span>
+          <span class="pool-value" id="meronPool">0</span>
+        </div>
+        <div class="pool-item">
+          <span class="pool-label">Wala Pool</span>
+          <span class="pool-value" id="walaPool">0</span>
+        </div>
+        <div class="pool-item">
+          <span class="pool-label">Draw Pool</span>
+          <span class="pool-value" id="drawPool">0</span>
+        </div>
+      </div>
+
+      <div class="esabong-bet-section">
+        <div class="dt-bet-label">Select Chip</div>
+        <div class="dt-chips">
+          <button class="chip" data-val="10" onclick="selectChip(10)">10</button>
+          <button class="chip active" data-val="50" onclick="selectChip(50)">50</button>
+          <button class="chip" data-val="100" onclick="selectChip(100)">100</button>
+          <button class="chip" data-val="500" onclick="selectChip(500)">500</button>
+        </div>
+      </div>
+
+      <div class="esabong-main-bets">
+        <button class="esabong-bet-btn meron" onclick="placeBet('meron')">
+          <span class="bet-icon">🐓</span>
+          <span class="bet-name">MERON (White)</span>
+          <span class="bet-amount" id="betMeron">0</span>
+        </button>
+        <button class="esabong-bet-btn draw" onclick="placeBet('draw')">
+          <span class="bet-icon">🤝</span>
+          <span class="bet-name">DRAW</span>
+          <span class="bet-amount" id="betDraw">0</span>
+        </button>
+        <button class="esabong-bet-btn wala" onclick="placeBet('wala')">
+          <span class="bet-icon">🐓</span>
+          <span class="bet-name">WALA (Red)</span>
+          <span class="bet-amount" id="betWala">0</span>
+        </button>
+      </div>
+
+      <div class="esabong-footer">
+        <div class="esabong-total">Total Bet: <span id="esabongTotalBet">0</span> 🪙</div>
+        <button class="esabong-clear-btn" onclick="clearBets()">Clear All</button>
+      </div>
+
+      <div class="esabong-history">
+        <h3>Last 10 Fights</h3>
+        <div class="esabong-history-list" id="esabongHistory"></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="walletModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>💰 My Wallet</h2>
+      <div class="wallet-balance">
+        <div class="wb-label">Available Coins</div>
+        <div class="wb-amount">🪙 <span id="walletBalance">0</span></div>
+      </div>
+      <div class="wallet-actions">
+        <button class="btn-add" onclick="addCoins()">+ Add Coins</button>
+        <button class="btn-withdraw" onclick="withdrawCoins()">↓ Withdraw</button>
+      </div>
+      <div class="wallet-info"><p>⚠️ Virtual coins only. No real money involved.</p></div>
+      <h3 style="margin-top:1.5rem;">Transaction History</h3>
+      <div id="txHistory" class="tx-history"></div>
+      <button class="modal-close" onclick="closeWallet()">Close</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="wallet-cleanup.js"></script><script src="live-bets.js"></script><script src="e-sabong.js"></script>
+</body>
+</html>

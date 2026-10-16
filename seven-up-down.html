@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7Up 7Down</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="seven-up-down-luxury.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <button class="back-icon" onclick="location.href='index.html'">←</button>
+    <div class="logo">🎲 7Up 7Down</div>
+    <div class="nav-wallet">
+      <div class="coin-display">🪙 <span id="navBalance">0</span></div>
+      <button class="nav-btn" onclick="openWallet()">Wallet</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="sud-container">
+      <div class="sud-roadmap" aria-label="Recent results">
+        <div class="sud-roadmap-title">RECENT RESULTS</div>
+        <div class="sud-roadmap-list" id="sudRoadmap"></div>
+      </div>
+      <div class="sud-round-bar">
+        <div class="sud-status" id="sudStatus">Please Bet Now</div>
+        <div class="sud-timer-wrap"><span class="sud-timer-label">TIME</span><div class="sud-timer" id="sudTimer">10</div></div>
+      </div>
+
+      <div class="sud-dice-area">
+        <div class="sud-dice" id="dice1">⚀</div>
+        <div class="sud-dice" id="dice2">⚀</div>
+        <div class="sud-sum" id="sudSum">?</div>
+      </div>
+
+      <div class="sud-main-bets" id="sudBetBoard">
+        <div class="sud-lock-overlay hidden" id="sudLockOverlay"><span id="sudLockText">Please Bet Now</span></div>
+        <button class="sud-bet-btn down" onclick="placeBet('down')">
+          <span class="sud-bet-icon">⬇️</span>
+          <span class="sud-bet-name">7 DOWN</span>
+          <span class="sud-bet-range">2-6</span>
+          <span class="sud-bet-payout">2x</span>
+          <span class="sud-bet-amount" id="betDown">0</span><span class="sud-chip-stack" data-stack="down"></span>
+        </button>
+        <button class="sud-bet-btn lucky" onclick="placeBet('lucky')">
+          <span class="sud-bet-icon">🎯</span>
+          <span class="sud-bet-name">LUCKY 7</span>
+          <span class="sud-bet-range">= 7</span>
+          <span class="sud-bet-payout">5x</span>
+          <span class="sud-bet-amount" id="betLucky">0</span><span class="sud-chip-stack" data-stack="lucky"></span>
+        </button>
+        <button class="sud-bet-btn up" onclick="placeBet('up')">
+          <span class="sud-bet-icon">⬆️</span>
+          <span class="sud-bet-name">7 UP</span>
+          <span class="sud-bet-range">8-12</span>
+          <span class="sud-bet-payout">2x</span>
+          <span class="sud-bet-amount" id="betUp">0</span><span class="sud-chip-stack" data-stack="up"></span>
+        </button>
+      </div>
+
+      <div class="sud-side-bets">
+        <button class="sud-side-btn odd" onclick="placeBet('odd')">
+          🔢 ODD <span class="payout-tag">2x</span>
+          <span class="sud-side-amount" id="betOdd">0</span>
+        </button>
+        <button class="sud-side-btn even" onclick="placeBet('even')">
+          🔢 EVEN <span class="payout-tag">2x</span>
+          <span class="sud-side-amount" id="betEven">0</span>
+        </button>
+      </div>
+
+      <div class="sud-number-section">
+        <div class="sud-number-label">Bet on Exact Number (9x)</div>
+        <div class="sud-number-grid">
+          <button class="sud-num-btn" onclick="placeBet('num2')">2</button>
+          <button class="sud-num-btn" onclick="placeBet('num3')">3</button>
+          <button class="sud-num-btn" onclick="placeBet('num4')">4</button>
+          <button class="sud-num-btn" onclick="placeBet('num5')">5</button>
+          <button class="sud-num-btn" onclick="placeBet('num6')">6</button>
+          <button class="sud-num-btn" onclick="placeBet('num7')">7</button>
+          <button class="sud-num-btn" onclick="placeBet('num8')">8</button>
+          <button class="sud-num-btn" onclick="placeBet('num9')">9</button>
+          <button class="sud-num-btn" onclick="placeBet('num10')">10</button>
+          <button class="sud-num-btn" onclick="placeBet('num11')">11</button>
+          <button class="sud-num-btn" onclick="placeBet('num12')">12</button>
+        </div>
+      </div>
+
+      <div class="sud-bet-section">
+        <div class="dt-bet-label">Select Chip</div>
+        <div class="dt-chips">
+          <button class="chip" data-val="10" onclick="selectChip(10)">10</button>
+          <button class="chip active" data-val="50" onclick="selectChip(50)">50</button>
+          <button class="chip" data-val="100" onclick="selectChip(100)">100</button>
+          <button class="chip" data-val="500" onclick="selectChip(500)">500</button>
+        </div>
+      </div>
+
+      <div class="sud-footer">
+        <div class="sud-total">Total Bet: <span id="sudTotalBet">0</span> 🪙</div>
+        <button class="sud-clear-btn" onclick="clearBets()">Clear All</button>
+      </div>
+
+      <div class="sud-history">
+        <h3>Last 10 Results</h3>
+        <div class="sud-history-list" id="sudHistory"></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="walletModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>💰 My Wallet</h2>
+      <div class="wallet-balance">
+        <div class="wb-label">Available Coins</div>
+        <div class="wb-amount">🪙 <span id="walletBalance">0</span></div>
+      </div>
+      <div class="wallet-actions">
+        <button class="btn-add" onclick="addCoins()">+ Add Coins</button>
+        <button class="btn-withdraw" onclick="withdrawCoins()">↓ Withdraw</button>
+      </div>
+      <div class="wallet-info"><p>⚠️ Virtual coins only. No real money involved.</p></div>
+      <h3 style="margin-top:1.5rem;">Transaction History</h3>
+      <div id="txHistory" class="tx-history"></div>
+      <button class="modal-close" onclick="closeWallet()">Close</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="wallet-cleanup.js"></script><script src="live-bets.js"></script><script src="seven-up-down.js"></script>
+</body>
+</html>

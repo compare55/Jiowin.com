@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Money Coming</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="money-coming-luxury.css">
+</head>
+<body class="mc-game-page">
+  <header class="mc-brand-bar">
+    <button class="mc-menu" aria-label="Menu" onclick="location.href='index.html'">☰</button>
+    <span class="mc-bell">♟</span>
+    <strong class="mc-brand">STAR<span>KBET</span></strong>
+    <div class="mc-wallet-chip">₹ <span id="navBalance">0.000</span></div>
+    <button class="mc-plus" onclick="openWallet()">+</button>
+  </header>
+
+  <main class="mc-game-shell">
+    <section class="mc-machine" aria-label="Money Coming wheel game">
+      <div class="mc-wood-texture"></div>
+      <div class="mc-wheel-frame">
+        <div class="mc-wheel-rim"><div class="mc-wheel-track" id="mcMainWheel">
+          <div class="mc-wheel-center"></div>
+          <span class="mc-wheel-label label-1">500</span><span class="mc-wheel-label label-2">75</span>
+          <span class="mc-wheel-label label-3">250</span><span class="mc-wheel-label label-4">50</span>
+          <span class="mc-wheel-label label-5">1000</span><span class="mc-wheel-label label-6">15</span>
+          <span class="mc-wheel-label label-7">75</span><span class="mc-wheel-label label-8">150</span>
+          <span class="mc-wheel-label label-9">25</span><span class="mc-wheel-label label-10">500</span>
+          <span class="mc-wheel-label label-11">50</span><span class="mc-wheel-label label-12">250</span>
+        </div></div>
+        <div class="mc-wheel-overlay">Bet 5 Up Game<br>To unlock Lucky Wheel</div>
+      </div>
+      <div class="mc-money-title">Money Coming</div>
+      <div class="mc-expanded">EXPANDED BET</div>
+      <div class="mc-bet-row"><button id="mcBetFive" class="mc-bet-option">Bet 5 unlock</button><button id="mcBetOne" class="mc-bet-option active">Bet 1 unlock <b>5X</b></button></div>
+      <div class="mc-number-reels" id="mcReels" aria-label="Number reels">
+        <div class="mc-number-column"><span>10</span><span>0</span><span>1</span></div>
+        <div class="mc-number-column"><span>0</span><span>1</span><span>1</span></div>
+        <div class="mc-number-column"><span>1</span><span>1</span><span>250</span></div>
+        <div class="mc-number-column"><span>1</span><span>0</span><span>75</span></div>
+        <div class="mc-number-column"><span>0</span><span>1</span><span>50</span></div>
+      </div>
+      <div class="mc-win-line">WIN <span id="mcMessage">₹ 0.000</span><span class="mc-multiplier-display" id="mcMultiplierDisplay">1x</span></div>
+      <div class="mc-control-row">
+        <button class="mc-round-control" onclick="openWallet()" aria-label="Settings">⚙</button>
+        <button class="mc-round-control" id="mcBetDown" aria-label="Decrease bet">−</button>
+        <button class="mc-spin-btn" id="mcSpinBtn" aria-label="Spin">SPIN</button>
+        <button class="mc-round-control" id="mcBetUp" aria-label="Increase bet">+</button>
+        <button class="mc-round-control" id="mcAutoSpin" aria-label="Auto spin">↻</button>
+      </div>
+      <div class="mc-footer-balance">LIVE &nbsp; Balance ₹ <span id="mcBalance">0.350</span><span class="mc-wifi">▰</span></div>
+    </section>
+  </main>
+
+  <div id="luckyWheelModal" class="modal hidden"><div class="modal-content mc-wheel-modal"><h2>Lucky Wheel</h2><div class="mc-wheel-result" id="mcWheelResult">?</div><button class="modal-close" onclick="closeWheel()">Collect Prize</button></div></div>
+  <div id="walletModal" class="modal hidden"><div class="modal-content"><h2>My Wallet</h2><div class="wallet-balance"><div class="wb-label">Available Coins</div><div class="wb-amount">₹ <span id="walletBalance">0.000</span></div></div><div class="wallet-actions"><button class="btn-add" onclick="addCoins()">+ Add Coins</button><button class="btn-withdraw" onclick="withdrawCoins()">↓ Withdraw</button></div><div class="wallet-info"><p>Virtual balance display only.</p></div><h3 style="margin-top:1.5rem;">Transaction History</h3><div id="txHistory" class="tx-history"></div><button class="modal-close" onclick="closeWallet()">Close</button></div></div>
+  <div id="toast" class="toast hidden"></div>
+  <script src="wallet-cleanup.js"></script><script src="money-coming.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pappu Play</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pappu-luxury.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <button class="back-icon" onclick="location.href='index.html'">←</button>
+    <div class="logo">🦋 Pappu Play</div>
+    <div class="nav-wallet">
+      <div class="coin-display">🪙 <span id="navBalance">0</span></div>
+      <button class="nav-btn" onclick="openWallet()">Wallet</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="pappu-container">
+      <div class="pappu-header">
+        <div class="pappu-status" id="pappuStatus">Place your bets!</div>
+        <div class="pappu-timer" id="pappuTimer">30</div>
+      </div>
+
+      <div class="pappu-result-display" id="pappuResultDisplay">
+        <div class="pappu-result-icon" id="pappuResultIcon">❓</div>
+        <div class="pappu-result-text" id="pappuResultText">Waiting...</div>
+      </div>
+
+      <div class="pappu-grid" id="pappuGrid"></div>
+
+      <div class="pappu-bet-section">
+        <div class="dt-bet-label">Select Chip</div>
+        <div class="dt-chips">
+          <button class="chip" data-val="10" onclick="selectChip(10)">10</button>
+          <button class="chip active" data-val="50" onclick="selectChip(50)">50</button>
+          <button class="chip" data-val="100" onclick="selectChip(100)">100</button>
+          <button class="chip" data-val="500" onclick="selectChip(500)">500</button>
+        </div>
+      </div>
+
+      <div class="pappu-footer">
+        <div class="pappu-total">Total Bet: <span id="pappuTotalBet">0</span> 🪙</div>
+        <button class="pappu-clear-btn" onclick="clearBets()">Clear All</button>
+      </div>
+
+      <div class="pappu-history">
+        <h3>Last 10 Winners</h3>
+        <div class="pappu-history-list" id="pappuHistory"></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="walletModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>💰 My Wallet</h2>
+      <div class="wallet-balance">
+        <div class="wb-label">Available Coins</div>
+        <div class="wb-amount">🪙 <span id="walletBalance">0</span></div>
+      </div>
+      <div class="wallet-actions">
+        <button class="btn-add" onclick="addCoins()">+ Add Coins</button>
+        <button class="btn-withdraw" onclick="withdrawCoins()">↓ Withdraw</button>
+      </div>
+      <div class="wallet-info"><p>⚠️ Virtual coins only. No real money involved.</p></div>
+      <h3 style="margin-top:1.5rem;">Transaction History</h3>
+      <div id="txHistory" class="tx-history"></div>
+      <button class="modal-close" onclick="closeWallet()">Close</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="wallet-cleanup.js"></script><script src="live-bets.js"></script><script src="pappu.js"></script>
+</body>
+</html>
